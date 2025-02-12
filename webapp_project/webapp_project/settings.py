@@ -143,3 +143,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
+LOGIN_REDIRECT_URL = 'project_list'  # Ensure this matches the name in your `urls.py`
+LOGOUT_REDIRECT_URL = 'project_list'  # Redirect after logout too

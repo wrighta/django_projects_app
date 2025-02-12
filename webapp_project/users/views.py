@@ -17,7 +17,7 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}! You can now log in.')
-            return redirect('users/login')  # Redirect to the login page after registration
+            return redirect('/login')  # Redirect to the login page after registration
     else:
         form = CustomUserCreationForm()
     return render(request, 'users/register.html', {'form': form})
@@ -40,4 +40,4 @@ def user_login(request):
 
 def user_logout(request): 
     logout(request) 
-    return redirect("project_list") 
+    return redirect("home") 
