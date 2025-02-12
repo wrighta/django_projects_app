@@ -4,6 +4,11 @@
 <div class="container mt-5">
     <div class="card shadow">
         <div class="card-body">
+            <p>
+                If you want to collaborate with me, please contact 
+                <strong>{{ project.user.username }}</strong>.
+                <a href="{% url 'messages' %}">Send a message</a>
+            </p>
             {% if project.image %}
                 <img src="{{ project.image.url }}" class="img-fluid mb-3" alt="{{ project.name }}">
             {% else %}

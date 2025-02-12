@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser
 from .forms import CustomUserCreationForm
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
 
 def user_list(request):
     users = CustomUser.objects.all()
@@ -38,6 +39,9 @@ def user_login(request):
         return render(request, 'login.html', {'form': form})
         #return render(request, 'users/login.html')
 
-def user_logout(request): 
-    logout(request) 
-    return redirect("home") 
+@csrf_exempt  # Allows logout via GET request (not recommended for security)
+def user_logout(request):
+    if request.method in ["POST", "GET"]:  # Allow GET logout
+        logout(request)
+        return redirect("home")  # Redirect to home page
+    return redirect("login")
