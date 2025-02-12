@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseForbidden
+from django.contrib.auth.decorators import login_required 
 from .models import Project
 from .forms import ProjectForm
 
@@ -12,7 +13,7 @@ def project_detail(request, pk):
     project = get_object_or_404(Project, pk=pk)
     return render(request, 'projects/project_detail.html', {'project': project})
 
-
+@login_required 
 def project_edit(request, pk):
     project = get_object_or_404(Project, pk=pk)
     
@@ -28,7 +29,7 @@ def project_edit(request, pk):
 
 from django.http import HttpResponseForbidden
 
-
+@login_required 
 def project_delete(request, pk):
     project = get_object_or_404(Project, pk=pk)
     
@@ -45,11 +46,15 @@ def project_delete(request, pk):
 
 
 
+ 
+@login_required 
 def project_add(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            project = form.save()
+            project.user = request.user  # Assign logged-in user 
+            project.save() 
             return redirect('project_list')  # Redirect to the project list after saving the new project
     else:
         form = ProjectForm()

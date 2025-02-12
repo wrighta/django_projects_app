@@ -18,8 +18,10 @@
             <p><strong>Status:</strong> <span class="badge bg-info">{{ project.status }}</span></p>
 
             <a href="{% url 'project_list' %}" class="btn btn-secondary">Back to List</a>
-            <a href="{% url 'project_edit' project.pk %}" class="btn btn-warning">Edit</a>
-            <a href="{% url 'project_delete' project.pk %}" class="btn btn-danger">Delete</a>
+            {% if project.user == request.user %} 
+                <a href="{% url 'project_edit' project.pk %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'project_delete' project.pk %}" class="btn btn-danger">Delete</a>
+            {% endif %} 
         </div>
     </div>
 </div>
