@@ -7,4 +7,5 @@ def message_list(request):
 
 
 def messages(request):
-    return render(request, 'messages/messages.html')
+    messages = Message.objects.all()
+    return render(request, 'messages/messages.html', {'messages': messages})
